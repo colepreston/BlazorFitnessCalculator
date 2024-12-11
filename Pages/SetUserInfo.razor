@@ -1,0 +1,78 @@
+@page "/setuserinfo"
+
+@using Microsoft.AspNetCore.Components.Forms
+
+
+
+<PageTitle>Set Info</PageTitle>
+
+<h1>Enter your personal info</h1>
+
+<!-- Form for capturing details -->
+<table>
+    <tr>
+        <td>Name:</td><td><InputText id="name" @bind-Value="UserDataService.Name"></InputText> <br/></td>
+    </tr><br/>
+    <tr>
+        <td>Age:</td><td><InputNumber id="age" @bind-Value="UserDataService.Age"></InputNumber> <br/></td>
+    </tr><br/>
+    <tr>
+        <td>Height (in):</td><td><InputNumber id="height" @bind-Value="UserDataService.Height" ></InputNumber> <br/></td>
+    </tr><br/>
+    <tr>
+        <td>Weight (lbs):</td><td><InputNumber id="weight" @bind-Value="UserDataService.Weight"></InputNumber> <br/></td>
+    </tr><br/>
+    <tr>
+        <td>Gender:</td>
+        <td><InputRadioGroup id="gender" @bind-Value="UserDataService.Gender">
+                <InputRadio Value="1"/> Male
+                <InputRadio Value="2" style="margin-left: 15px;" /> Female
+            </InputRadioGroup> <br/>
+        </td>
+    </tr><br/>
+    <tr>
+        <td><button class="btn btn-primary" @onclick="setInfo">Save</button></td>
+    </tr><br/>
+</table>
+
+Basal Metabolic Rate (calories): @(UserDataService.BMR <= 0 ? "" : UserDataService.BMR)<br />
+
+
+@code {
+    private string name = "";
+    private int age;
+    private int height;
+    private int weight;
+    private int gender;
+
+
+    [Inject]
+    private UserDataService UserDataService { get; set; }
+    private double? kg;
+    private double? cm;
+
+    private void setInfo()
+    {
+        // Store data in the service
+        //UserDataService.Name = name;
+        //UserDataService.Age = age;
+        //UserDataService.Height = height;
+        //UserDataService.Weight = weight;
+        //UserDataService.Gender = gender;
+        if (UserDataService.Weight != null)
+        {
+            kg = UserDataService.Weight * .453592;
+            cm = UserDataService.Height * 2.54;
+
+            if (UserDataService.Gender == 1)
+            {
+                UserDataService.BMR = Convert.ToInt32(88.362 + (13.397 * kg) + (4.799 * cm) - (5.677 * Convert.ToDouble(UserDataService.Age)));
+            }
+            else
+            {
+                UserDataService.BMR = Convert.ToInt32(447.593 + (9.247 * kg) + (3.098 * cm) - (4.33 * Convert.ToDouble(UserDataService.Age)));
+            }
+        }
+
+    }
+}
