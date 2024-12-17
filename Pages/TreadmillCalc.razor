@@ -4,47 +4,62 @@
 <PageTitle>Treadmill</PageTitle>
 
 <h1>Treadmill Calories Burned</h1>
-<table>
-    <tr>
-        <td>Speed (mph): </td><td><InputNumber id="speed" @bind-Value="speed"></InputNumber></td> <br/>
-    </tr><br/>
-    <tr>
-        <td>Time (min): </td><td><InputNumber id="time" @bind-Value="time"></InputNumber></td> <br/>
-    </tr><br/>
-    <tr>
-        <td><button class="btn btn-primary" @onclick="Calculate">Calculate</button><br/><br/></td>
-    </tr>
-</table>
 
+<EditForm Model="@formModel" OnValidSubmit="calculate">
+    <DataAnnotationsValidator/>
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard Style="width:380px;">
+                <MudCardContent Style="width:380px;">
+                    <MudNumericField Label="Speed" @bind-Value="@speed" For="@(() => speed)"/>
+                    <MudNumericField Label="Time" @bind-Value="@time" For="@(() => time)"/>
+                    <MudNumericField Label="Weight" @bind-Value="@formModel.Weight" For="@(() => formModel.Weight)"/>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">Calculate</MudButton>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
 
-<p role="status">Calories: @calories</p>
+<MudText Typo="Typo.body1">
+    <strong>Calories <MudText Color="Color.Primary">@(calories> 0 ? calories.ToString() : "N/A")</MudText></strong>
+</MudText>
 
 @code {
-    private int currentCount = 0;
     private int? calories = null;
     private int? speed = null;
     private int? time = null;
-    private double? weight;
     private double coefficient = .1;
 
-    protected override void OnInitialized(){
-    }
-
-
-
-    private void Calculate()
+    [Inject]
+    private UserDataService UserDataService { get; set; }
+    private UserDataModel formModel = new UserDataModel();
+    protected override void OnInitialized()
     {
-        if (UserData.Weight != null)
-        {
-            weight = UserData.Weight;
-            calories = speed * time;
-            currentCount++;
-
-            if (speed > 4)
-            {
-                coefficient = .2;
-            }
-            calories = Convert.ToInt32(((((coefficient * (speed * 26.8)) + 3.5) * (weight / 2.2) / 200) * time));
-        }
+        // Initialize the formModel with current values of UserDataService
+        formModel.Weight = UserDataService.Weight ?? null;
     }
+
+    private void calculate()
+    {
+        if (formModel.Weight.HasValue && speed.HasValue && time.HasValue)
+        {
+            calories = Convert.ToInt32(((((coefficient * (speed.Value * 26.8)) + 3.5) * (formModel.Weight.Value / 2.2) / 200) * time.Value));
+        }
+        else
+        {
+            calories = null; // Reset calories if the calculation couldn't be performed
+        }  
+    }
+
+    public class UserDataModel
+    {
+        public int? Weight { get; set; }
+    }
+
+
+
+
+
+
 }

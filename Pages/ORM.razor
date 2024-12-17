@@ -4,36 +4,52 @@
 <PageTitle>One Rep Max</PageTitle>
 
 <h1>One Rep Max Estimator</h1>
-<table>
-    <tr>
-        <td>Weight (lbs): </td><td><InputNumber id="weight" @bind-Value="weight"></InputNumber></td> <br/>
-    </tr><br/>
-    <tr>
-        <td>Reps: </td><td><InputNumber id="reps" @bind-Value="reps"></InputNumber></td> <br/>
-    </tr><br/>
-    <tr>
-        <td><button class="btn btn-primary" @onclick="Calculate">Calculate</button><br/><br/></td>
-    </tr>
-</table>
 
+<EditForm Model="@formModel" OnValidSubmit="calculate">
+    <DataAnnotationsValidator/>
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard Style="width:380px;">
+                <MudCardContent Style="width:380px;">
+                    <MudNumericField Label="Weight" @bind-Value="@formModel.Weight" For="@(() => formModel.Weight)" />
+                    <MudNumericField Label="Reps" @bind-Value="@formModel.Reps" For="@(() => formModel.Reps)" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">Calculate</MudButton>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
 
-<p role="status">Estimated 1 Rep Max: @max</p>
+<MudText Typo="Typo.body1">
+    <strong>One Rep Max: <MudText Color="Color.Primary">@(max.HasValue ? max.Value.ToString("0") : "N/A")</MudText></strong>
+    
+</MudText>
 
 @code {
-    private double? weight = null;
-    private double? reps = null;
-    private double? max;
+    private double? max = null;
 
-    protected override void OnInitialized(){
+    // Define the model to bind to the form
+    private OneRepMaxModel formModel = new OneRepMaxModel();
+
+    // Calculation logic for One Rep Max (1RM)
+    private void calculate()
+    {
+        // Ensure the reps value is positive to avoid unrealistic calculations
+        if (formModel.Weight > 0 && formModel.Reps > 0)
+        {
+            // Formula to estimate One Rep Max (1RM)
+            max = Math.Floor(formModel.Weight * (1 + (formModel.Reps / 30.0)));
+        }
+        else
+        {
+            max = null; // Reset if input is invalid
+        }
     }
 
-
-
-    private void Calculate()
+    // Model to hold the form values
+    public class OneRepMaxModel
     {
-        if (weight != null)
-        {
-            max = weight * (1 + (reps / 30));
-        }
+        public double Weight { get; set; }
+        public double Reps { get; set; }
     }
 }
