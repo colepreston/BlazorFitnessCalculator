@@ -33,7 +33,7 @@ public class UserDataService
     //public double? Weight { get; set; } = null;
     [Required]
     [Range(1, int.MaxValue, ErrorMessage = "Please enter a positive number")]
-    public int? Gender { get; set; } = 1; // Can also be nullable if needed
+    public int? Gender { get; set; } = 10; // Can also be nullable if needed
     public double? BMR { get; set; } = null;
 
     // Optionally, you can add methods to perform operations on the data if needed

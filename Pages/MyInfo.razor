@@ -6,17 +6,38 @@
     My Info
 </h1>
 
-
-<p role="status">
-    Name: @UserDataService.Name<br /> 
-    Age: @(UserDataService.Age <= 0 ? "" : UserDataService.Age)<br />
-    Height (in): @(UserDataService.Height <= 0 ? "" : UserDataService.Height)<br /> 
-    Weight (lbs): @(UserDataService.Weight <= 0 ? "" : UserDataService.Weight)<br />
-    Gender: @(UserDataService.Gender == 1 ? "Male" : (UserDataService.Gender == 2 ? "Female" : ""))<br /><br /> 
-    Basal Metabolic Rate (calories): @(UserDataService.BMR <= 0 ? "" : UserDataService.BMR)<br />
-</p>
-
-
+<MudGrid>
+    <MudItem>
+        <MudCard>
+            <table>
+        <tr>
+            <td><MudText style="margin-left: 20px; margin-right: 20px;"><b>Name:</b></MudText></td>
+            <td><MudText Color="Color.Primary" style="margin-right: 20px;">@UserDataService.Name</MudText></td>
+        </tr>
+        <tr>
+            <td><MudText style="margin-left: 20px; margin-right: 20px;"><b>Age:</b></MudText></td>
+            <td><MudText Color="Color.Primary" style="margin-right: 20px;">@(UserDataService.Age <= 0 ? "" : UserDataService.Age)</MudText></td>
+        </tr>
+        <tr>
+            <td><MudText style="margin-left: 20px; margin-right: 20px;"><b>Height:</b></MudText></td>
+            <td><MudText Color="Color.Primary" style="margin-right: 20px;">@(UserDataService.Height <= 0 ? "" : UserDataService.Height)</MudText></td>
+        </tr>
+        <tr>
+            <td><MudText style="margin-left: 20px; margin-right: 20px;"><b>Weight:</b></MudText></td>
+            <td><MudText Color="Color.Primary" style="margin-right: 20px;">@(UserDataService.Weight <= 0 ? "" : UserDataService.Weight)</MudText></td>
+        </tr>
+        <tr>
+            <td><MudText style="margin-left: 20px; margin-right: 20px;"><b>Gender:</b></MudText></td>
+            <td><MudText Color="Color.Primary" style="margin-right: 20px;">@(UserDataService.Gender == 1 ? "Male" : (UserDataService.Gender == 2 ? "Female" : ""))</MudText></td>
+        </tr>
+        <tr>
+            <td><MudText style="margin-left: 20px; margin-right: 20px;"><b>BMR:</b></MudText></td>
+            <td><MudText Color="Color.Primary" style="margin-right: 20px;">@(UserDataService.BMR <= 0 ? "" : UserDataService.BMR)</MudText></td>
+        </tr>
+    </table>
+        </MudCard>
+    </MudItem>
+</MudGrid>
 
 @code{
      [Inject]
