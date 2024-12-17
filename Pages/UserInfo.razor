@@ -1,0 +1,15 @@
+
+<p role="status">
+    Name: @UserDataService.Name<br /> 
+    Age: @(UserDataService.Age <= 0 ? "" : UserDataService.Age)<br />
+    Height (in): @(UserDataService.Height <= 0 ? "" : UserDataService.Height)<br /> 
+    Weight (lbs): @(UserDataService.Weight <= 0 ? "" : UserDataService.Weight)<br />
+    Gender: @(UserDataService.Gender == 1 ? "Male" : (UserDataService.Gender == 2 ? "Female" : ""))<br /><br /> 
+    BMR: @(UserDataService.BMR <= 0 ? "" : UserDataService.BMR)<br />
+</p>
+
+@code {
+    [Inject]
+    private UserDataService UserDataService { get; set; }
+
+}

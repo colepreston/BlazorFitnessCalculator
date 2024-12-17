@@ -1,0 +1,88 @@
+@page "/setuserinfo"
+
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+
+
+
+<PageTitle>Set Info</PageTitle>
+
+<h1>Enter your personal info</h1>
+
+<EditForm Model="@formModel" OnValidSubmit="setInfo">
+    <DataAnnotationsValidator/>
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard Style="width:380px;">
+                <MudCardContent Style="width:380px;">
+                    <MudTextField Label="Name" @bind-Value="@formModel.Name" For="@(() => formModel.Name)"/>
+                    <MudNumericField Label="Age" @bind-Value="@formModel.Age" For="@(() => formModel.Age)"/>
+                    <MudNumericField Label="Height" @bind-Value="@formModel.Height" For="@(() => formModel.Height)"/>
+                    <MudNumericField Label="Weight" @bind-Value="@formModel.Weight" For="@(() => formModel.Weight)"/>
+                    <MudRadioGroup T="int?" @bind-Value="formModel.Gender" For="@(() => formModel.Gender)">
+                        <MudRadio T="int?" Value="1">Male</MudRadio>
+                        <MudRadio T="int?" Value="2">Female</MudRadio>
+                    </MudRadioGroup>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">Submit</MudButton>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+<br/>
+<MudText Typo="Typo.body1">
+    <strong>Basal Metabolic Rate (calories) <MudText Color="Color.Primary">@(UserDataService.BMR > 0 ? UserDataService.BMR.ToString() : "N/A")</MudText></strong>
+</MudText>
+
+@code{
+    [Inject]
+    private UserDataService UserDataService { get; set; }
+    private UserDataModel formModel = new UserDataModel();
+    private double? kg;
+    private double? cm;
+
+    protected override void OnInitialized()
+    {
+        // Initialize the formModel with current values of UserDataService
+        formModel = new UserDataModel
+        {
+            Name = UserDataService.Name,
+            Age = UserDataService.Age,
+            Height = UserDataService.Height,
+            Weight = UserDataService.Weight,
+            Gender = UserDataService.Gender
+        };
+    }
+
+    private void setInfo()
+    {
+        Console.WriteLine($"Updating UserDataService: {formModel.Name}, {formModel.Age}");
+        // Copy formModel values back to UserDataService on submit
+        UserDataService.Name = formModel.Name;
+        UserDataService.Age = formModel.Age;
+        UserDataService.Height = formModel.Height;
+        UserDataService.Weight = formModel.Weight;
+        UserDataService.Gender = formModel.Gender;
+        
+        //BMR calculation
+        kg = UserDataService.Weight * .453592;
+        cm = UserDataService.Height * 2.54;
+
+        if (UserDataService.Gender == 1){
+            UserDataService.BMR = Convert.ToInt32(88.362 + (13.397 * kg) + (4.799 * cm) - (5.677 * Convert.ToDouble(UserDataService.Age)));
+        }
+        else{
+            UserDataService.BMR = Convert.ToInt32(447.593 + (9.247 * kg) + (3.098 * cm) - (4.33 * Convert.ToDouble(UserDataService.Age)));
+        }    
+    }
+
+
+    public class UserDataModel
+    {
+        public string Name { get; set; }
+        public int? Age { get; set; }
+        public int? Height { get; set; }
+        public int? Weight { get; set; }
+        public int? Gender { get; set; }
+    }
+}

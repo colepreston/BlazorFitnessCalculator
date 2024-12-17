@@ -1,0 +1,52 @@
+@page "/practice"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<p>InitialCount=@InitialCount</p>
+
+
+Name: <InputText id="name" @bind-Value="name"></InputText> <br/>
+Age: <InputNumber id="age" @bind-Value="age"></InputNumber> <br/>
+Height: <InputNumber id="height" @bind-Value="height"></InputNumber> <br/>
+Weight: <InputNumber id="weight" @bind-Value="weight"></InputNumber> <br/>
+Gender: <InputText id="gender" @bind-Value="gender"></InputText> <br/>
+
+<p role="status">Name: @savedName<br/> Age:@savedAge<br/> Height:@savedHeight<br/> Weight:@savedWeight<br/> Gender:@savedGender<br/> </p>
+
+@code {
+    private int currentCount = 0;
+    private string name = "";
+    private int age;
+    private int height;
+    private int weight;
+    private string gender = "no idea";
+    private string savedName = "hell on earth";
+    private int savedAge;
+    private int savedHeight;
+    private int savedWeight;
+    private string savedGender;
+
+    protected override void OnInitialized(){
+        currentCount = InitialCount;
+    }
+
+
+    [Parameter]
+    public int InitialCount {get; set; }
+
+    private void IncrementCount()
+    {
+        savedName = name;
+        savedAge = age;
+        savedHeight = height;
+        savedWeight = weight;
+        savedGender = gender;
+        currentCount++;
+    }
+}
