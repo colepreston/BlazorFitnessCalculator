@@ -11,8 +11,8 @@
         <MudItem xs="12" sm="7">
             <MudCard Style="width:380px;">
                 <MudCardContent Style="width:380px;">
-                    <MudNumericField Label="Weight" @bind-Value="@formModel.Weight" For="@(() => formModel.Weight)" />
-                    <MudNumericField Label="Reps" @bind-Value="@formModel.Reps" For="@(() => formModel.Reps)" />
+                    <MudNumericField Label="Weight" @bind-Value="@formModel.Weight" For="@(() => formModel.Weight)" Min="0" ErrorText="Weight must be a positive number." />
+                    <MudNumericField Label="Reps" @bind-Value="@formModel.Reps" For="@(() => formModel.Reps)" Min="0" ErrorText="Reps must be a positive number."/>
                     <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">Calculate</MudButton>
                 </MudCardContent>
             </MudCard>
@@ -21,8 +21,7 @@
 </EditForm>
 
 <MudText Typo="Typo.body1">
-    <strong>One Rep Max: <MudText Color="Color.Primary">@(max.HasValue ? max.Value.ToString("0") : "N/A")</MudText></strong>
-    
+    <strong>One Rep Max: <MudText Color="Color.Primary">@((max.HasValue) ? max.Value.ToString("0") : "")</MudText></strong>
 </MudText>
 
 @code {
@@ -31,14 +30,17 @@
     // Define the model to bind to the form
     private OneRepMaxModel formModel = new OneRepMaxModel();
 
+
+
     // Calculation logic for One Rep Max (1RM)
     private void calculate()
     {
         // Ensure the reps value is positive to avoid unrealistic calculations
-        if (formModel.Weight > 0 && formModel.Reps > 0)
+        //formModel.Weight.HasValue && speed.HasValue
+        if (formModel.Weight.HasValue && formModel.Reps.HasValue && formModel.Weight > 0 && formModel.Reps > 0)
         {
-            // Formula to estimate One Rep Max (1RM)
-            max = Math.Floor(formModel.Weight * (1 + (formModel.Reps / 30.0)));
+            // Formula to estimate One Rep Max (1RM), then round down to the nearest whole number
+            max = Math.Floor(formModel.Weight.Value * (1 + (formModel.Reps.Value / 30.0)));
         }
         else
         {
@@ -49,7 +51,7 @@
     // Model to hold the form values
     public class OneRepMaxModel
     {
-        public double Weight { get; set; }
-        public double Reps { get; set; }
+        public double? Weight { get; set; }
+        public double? Reps { get; set; }
     }
 }
