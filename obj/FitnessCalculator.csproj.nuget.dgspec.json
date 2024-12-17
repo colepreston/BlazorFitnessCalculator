@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cole\\source\\repos\\FitnessCalculator\\FitnessCalculator\\FitnessCalculator.csproj": {}
+    "C:\\Users\\cole\\source\\repos\\BlazorFitnessCalculator\\FitnessCalculator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cole\\source\\repos\\FitnessCalculator\\FitnessCalculator\\FitnessCalculator.csproj": {
+    "C:\\Users\\cole\\source\\repos\\BlazorFitnessCalculator\\FitnessCalculator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cole\\source\\repos\\FitnessCalculator\\FitnessCalculator\\FitnessCalculator.csproj",
+        "projectUniqueName": "C:\\Users\\cole\\source\\repos\\BlazorFitnessCalculator\\FitnessCalculator.csproj",
         "projectName": "FitnessCalculator",
-        "projectPath": "C:\\Users\\cole\\source\\repos\\FitnessCalculator\\FitnessCalculator\\FitnessCalculator.csproj",
+        "projectPath": "C:\\Users\\cole\\source\\repos\\BlazorFitnessCalculator\\FitnessCalculator.csproj",
         "packagesPath": "C:\\Users\\cole\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cole\\source\\repos\\FitnessCalculator\\FitnessCalculator\\obj\\",
+        "outputPath": "C:\\Users\\cole\\source\\repos\\BlazorFitnessCalculator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -70,6 +70,10 @@
               "target": "Package",
               "version": "[9.0.0, )",
               "autoReferenced": true
+            },
+            "MudBlazor": {
+              "target": "Package",
+              "version": "[7.15.0, )"
             }
           },
           "imports": [

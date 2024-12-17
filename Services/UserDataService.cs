@@ -1,4 +1,6 @@
-﻿public class UserDataService
+﻿using System.ComponentModel.DataAnnotations;
+
+public class UserDataService
 {
     // Properties to hold user data
     /*
@@ -10,11 +12,28 @@
     public double BMR { get; set; }
     */
 
-    public string Name { get; set; } = null!;
+
+    [Required]
+    public string Name { get; set; } = string.Empty;
+    [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Please enter a positive number")]
     public int? Age { get; set; } = null;
-    public double? Height { get; set; } = null;
-    public double? Weight { get; set; } = null;
-    public int? Gender { get; set; } = null; // Can also be nullable if needed
+    [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Please enter a positive number")]
+    public int? Height { get; set; } = null;
+    [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Please enter a positive number")]
+    public int? Weight { get; set; } = null;
+
+
+
+    //public string Name { get; set; } = null!;
+    //public int? Age { get; set; } = null;
+    //public double? Height { get; set; } = null;
+    //public double? Weight { get; set; } = null;
+    [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Please enter a positive number")]
+    public int? Gender { get; set; } = 1; // Can also be nullable if needed
     public double? BMR { get; set; } = null;
 
     // Optionally, you can add methods to perform operations on the data if needed
