@@ -19,9 +19,9 @@
         </MudItem>
     </MudGrid>
 </EditForm>
-
+<br/>
 <MudText Typo="Typo.body1">
-    <strong>One Rep Max: <MudText Color="Color.Primary">@((max.HasValue) ? max.Value.ToString("0") : "")</MudText></strong>
+    <strong>One Rep Max: <MudText Color="Color.Primary">@((max.HasValue) ? max.Value.ToString("0") : "N/A")</MudText></strong>
 </MudText>
 
 @code {
