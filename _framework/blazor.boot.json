@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "FitnessCalculator",
   "resources": {
-    "hash": "sha256-dC43kT9ZmIH5J+SpMYTAjoIymgkDfr42I5yJPcvP5h4=",
+    "hash": "sha256-iXxcyy5MSXokHZ11E8J/e3hnJhSUFn2cf+wTExtjGWM=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-VdKq87/z5NIxZKmuM+fv38XF+RcEb/bg3jVBwQSfwP4="
     },
@@ -18,7 +18,7 @@
     },
     "coreAssembly": {},
     "assembly": {
-      "FitnessCalculator.wasm": "sha256-IyoPEbqPNoVw3MYjxeqqJamYsWjG55wJYboxG7fXpEU=",
+      "FitnessCalculator.wasm": "sha256-k0K/nCwDrLjsx+TDajuCVJGoVy9EenObrtDKPHLltPU=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-IW1QNBi7DZtOt218GVv95nxeOtOLUXHW792TKM73I6k=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-X4PPvrTrVxyv3sTB1PxQdHpi/j8WHKvbx49Hix7YcbA=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-UomzIXZ57kyro9x7Wq6iQ60/iO1qCfqrSouhipanPk0=",
